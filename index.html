@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fetch Request</title>
+</head>
+<body>
+
+<button id="fetchButton">Perform Fetch Request</button>
+<text id="result"></text>
+
+<script>
+document.getElementById('fetchButton').addEventListener('click', fetchData);
+
+function fetchData() {
+
+  const apiUrl = './my_degree.json';
+  const fetchPromise = fetch(apiUrl);
+
+  fetchPromise.then(response => {
+ 
+    if (response.status === 200) {
+ 
+      response.json().then(data => {
+        console.log('Returned JSON data:', data);
+
+   
+        document.getElementById('result').innerText = JSON.stringify(data);
+      });
+    } else {
+      console.error('Error: Failed to fetch data. Status Code:', response.status);
+    }
+  }).catch(error => {
+    console.error('Error during fetch:', error);
+  });
+}
+</script>
+
+</body>
+</html>
